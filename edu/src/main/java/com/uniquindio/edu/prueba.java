@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class prueba implements CommandLineRunner {
 
     @Autowired
