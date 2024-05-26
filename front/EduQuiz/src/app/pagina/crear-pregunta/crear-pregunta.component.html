@@ -1,0 +1,39 @@
+<!-- crear-pregunta.component.html -->
+<head>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<div class="header">
+  <h1 class="app-name">EduQuiz</h1>
+  <h2 class="section-name">Crear Pregunta</h2>
+</div>
+
+<div class="container">
+  <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="questionTopic">Tema de la pregunta</label>
+      <select class="form-control" id="questionTopic" formControlName="questionTopic" required>
+        <!-- Aquí puedes agregar las opciones para los temas -->
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="questionType">Tipo de pregunta</label>
+      <select class="form-control" id="questionType" formControlName="questionType" required>
+        <option value="trueFalse">Falso y Verdadero</option>
+        <option value="multipleChoice">Opción Múltiple</option>
+        <option value="multipleAnswers">Opción Múltiple con Varias Respuestas</option>
+        <option value="matchConcepts">Emparejar Conceptos</option>
+        <option value="orderConcepts">Ordenar Conceptos</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="questionStatement">Enunciado de la pregunta</label>
+      <textarea class="form-control" id="questionStatement" formControlName="questionStatement" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!questionForm.valid">Siguiente</button>
+  </form>
+</div>
+<router-outlet></router-outlet>

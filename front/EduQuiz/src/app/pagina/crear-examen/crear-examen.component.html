@@ -1,0 +1,68 @@
+<!-- crear-examen.component.html -->
+<head>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<!-- crear-examen.component.html -->
+<div class="header">
+  <h1 class="app-name">EduQuiz</h1>
+  <h2 class="section-name">Crear Examen</h2>
+</div>
+
+<div class="container">
+  <form [formGroup]="examForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="examName">Nombre del examen</label>
+      <input type="text" class="form-control" id="examName" formControlName="examName" required>
+    </div>
+
+    <div class="form-group">
+      <label for="examDescription">Descripción del examen</label>
+      <textarea class="form-control" id="examDescription" formControlName="examDescription" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="examCategory">Categoría del examen</label>
+      <select class="form-control" id="examCategory" formControlName="examCategory" required>
+        <option value="parcial">Parcial</option>
+        <option value="quiz">Quiz</option>
+        <!-- Agrega más opciones según sea necesario -->
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="questionCount">Cantidad de preguntas</label>
+      <input type="number" class="form-control" id="questionCount" formControlName="questionCount" required>
+    </div>
+
+    <div class="form-group">
+      <label for="examDateTime">Fecha y hora del examen</label>
+      <input type="datetime-local" class="form-control" id="examDateTime" formControlName="examDateTime" required>
+    </div>
+    <div class="form-group">
+      <label for="examDuration">Duración del examen (en minutos)</label>
+      <input type="number" class="form-control" id="examDuration" formControlName="examDuration" required>
+    </div>
+
+    <!-- Sección desplazable con las preguntas -->
+    <div class="form-group">
+      <label>Preguntas</label>
+      <div style="height: 200px; overflow-y: scroll; border: 1px solid #ccc; padding: 1em;">
+        <!-- Aquí puedes listar las preguntas. Por ahora, solo es un placeholder -->
+        <p>Pregunta 1</p>
+        <p>Pregunta 2</p>
+        <p>Pregunta 3</p>
+        <!-- ... -->
+      </div>
+    </div>
+
+    <!-- Botón para crear otra pregunta -->
+    <button type="button" class="btn btn-secondary" (click)="onCreateQuestion()">Crear otra pregunta</button>
+
+    <!-- Botón para seleccionar un banco de preguntas -->
+    <button type="button" class="btn btn-secondary" (click)="onSelectQuestionBank()">Seleccionar banco de preguntas</button>
+
+
+    <button type="submit" class="btn btn-primary" [disabled]="!examForm.valid">Siguiente</button>
+  </form>
+</div>
+<router-outlet></router-outlet>
