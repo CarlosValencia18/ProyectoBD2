@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-seleccionar-examen',
@@ -17,7 +18,7 @@ export class SeleccionarExamenComponent implements OnInit {
     // Agrega más exámenes aquí
   ];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     const idUsuario = history.state.idUsuario; // Obtiene idUsuario del estado de la navegación
@@ -26,6 +27,7 @@ export class SeleccionarExamenComponent implements OnInit {
 
     this.http.get<any>(url, { params }).subscribe({
       next: (response: any) => {
+        console.log(response);
         this.examenesDisponibles = response;
       },
       error: (error) => {
@@ -36,9 +38,13 @@ export class SeleccionarExamenComponent implements OnInit {
 
   presentarExamen(examen: any): void {
     console.log('Presentando el examen:', examen.nombre);
+    this.router.navigate(['/presentar-examen'], {
+      state: { idExamen: examen.idExamen },
+    });
   }
   cerrarSesion(event: Event): void {
     event.preventDefault();
     console.log('Cerrando sesión...');
+    this.router.navigate(['/login']);
   }
 }
