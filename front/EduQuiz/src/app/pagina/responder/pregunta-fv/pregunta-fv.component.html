@@ -1,0 +1,15 @@
+<!-- pregunta-falso-verdadero.component.html -->
+<div class="container">
+
+    <div class="form-group">
+      <input type="radio" value="true" name="respuesta" [(ngModel)]="selectedOption" (change)="emitAnswer(true)">
+      <label>Verdadero</label>
+    </div>
+    <div class="form-group">
+      <input type="radio" value="false" name="respuesta" [(ngModel)]="selectedOption" (change)="emitAnswer(false)">
+      <label>Falso</label>
+    </div>
+
+</div>
+
+<router-outlet></router-outlet>
