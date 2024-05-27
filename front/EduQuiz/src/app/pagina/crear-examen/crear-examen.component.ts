@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { QuestionService } from '../../services/question.service';
 import { FormStateService } from '../../services/form-state.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   standalone: true,
@@ -28,10 +29,12 @@ export class CrearExamenComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private questionService: QuestionService,
-    private formStateService: FormStateService
+    private formStateService: FormStateService,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
+    console.log(history.state.idUsuario);
     // Inicializar el formulario
     this.examForm = this.formBuilder.group({
       examName: ['', Validators.required],
@@ -42,22 +45,26 @@ export class CrearExamenComponent implements OnInit {
       preguntas: this.formBuilder.array([], Validators.required),
     });
 
-    const formState = this.formStateService.getFormState();
-    if (formState) {
-      this.examForm.setValue(formState);
-    }
-
     // Preguntas de prueba
     const preguntasDePrueba = this.questionService.getQuestions();
 
+    // Crear un FormGroup para cada pregunta de prueba
     // Crear un FormGroup para cada pregunta de prueba
     const preguntasFormGroups = preguntasDePrueba.map((pregunta) =>
       this.formBuilder.group({
         ...pregunta,
         enunciado: [pregunta.enunciado, Validators.required],
-        porcentaje: [pregunta.porcentaje, Validators.required],
+        porcentaje: [pregunta.porcentaje],
+        opciones: this.formBuilder.array(
+          pregunta.opciones
+            ? pregunta.opciones.map((opcion: any) =>
+                this.formBuilder.group(opcion)
+              )
+            : [pregunta.respuesta]
+        ), // Verifica que pregunta.opciones exista antes de llamar a map
       })
     );
+
     console.log(preguntasFormGroups);
     // Obtener el FormArray para preguntas
     const preguntasArray = this.examForm.get('preguntas') as FormArray;
@@ -66,6 +73,11 @@ export class CrearExamenComponent implements OnInit {
     preguntasFormGroups.forEach((preguntaGroup) =>
       preguntasArray.push(preguntaGroup)
     );
+
+    const formState = this.formStateService.getFormState();
+    if (formState) {
+      this.examForm.patchValue(formState);
+    }
   }
 
   get preguntas(): FormArray {
@@ -73,8 +85,32 @@ export class CrearExamenComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(history.state.idUsuario);
     if (this.examForm.valid) {
-      console.log(this.examForm.value);
+      const exam = this.examForm.value;
+      // Obtener el valor del formulario
+      console.log(exam);
+      // Convertir exam a un formato que la API pueda entender
+      const examForApi = {
+        ...exam,
+        preguntas: exam.preguntas.map((pregunta: any) => ({
+          enunciado: pregunta.enunciado,
+          porcentaje: pregunta.porcentaje,
+          duracion: pregunta.duracion,
+          privada: pregunta.isPublic,
+          // Verificar si pregunta.opciones existe antes de llamar a map en él
+          opciones: pregunta.opciones ? pregunta.opciones : [],
+        })),
+        idUsuario: history.state.idUsuario,
+      };
+      console.log(examForApi);
+      // Enviar examForApi al controlador
+      this.http
+        .post('http://localhost:8081/crear-examen', examForApi)
+        .subscribe((response) => {
+          console.log(response);
+          // this.router.navigate(['/inicio-docente']);
+        });
     }
   }
 
