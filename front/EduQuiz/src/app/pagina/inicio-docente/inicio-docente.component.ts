@@ -67,4 +67,8 @@ export class InicioDocenteComponent implements OnInit {
     console.log('Cerrando sesión...');
     this.router.navigate(['/login']);
   }
+
+  asignarExamen() {
+    this.router.navigate(['/asignar-examen']);
+  }
 }
