@@ -15,7 +15,7 @@ export class PreguntaMRComponent {
   @Output() answer = new EventEmitter<string[]>();
 
   emitAnswer() {
-    const selectedOptions = this.pregunta.opciones.filter((opcion: any) => opcion.selected).map((opcion: any) => opcion.texto);
+    const selectedOptions = this.pregunta.opciones.filter((opcion: any) => opcion.selected).map((opcion: any) => opcion.idOpcion);
     this.answer.emit(selectedOptions);
   }
 }

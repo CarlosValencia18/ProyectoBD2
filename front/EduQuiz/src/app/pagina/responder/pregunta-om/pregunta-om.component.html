@@ -1,7 +1,7 @@
 <div class="container">
   <form>
     <div class="form-group" *ngFor="let opcion of pregunta.opciones">
-      <input type="radio" [value]="opcion.textoOpcion" name="opcion" (change)="emitAnswer(opcion.textoOpcion)">
+      <input type="radio" [value]="opcion.textoOpcion" name="opcion" (change)="emitAnswer(opcion.idOpcion)">
       <label>{{ opcion.textoOpcion }}</label>
     </div>
   </form>
