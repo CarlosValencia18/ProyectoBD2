@@ -7,29 +7,45 @@ import com.uniquindio.edu.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public List<Usuario> obtenerTodosLosUsuarios() {
-        return usuarioRepository.findAll();
+    @Autowired
+    private RolRepository rolRepository;
+
+    public void register(String correo, String clave, String roleId, String nombres, String apellidos, String telefono) {
+        Rol rol = rolRepository.findById(String.valueOf(roleId));
+
+        Usuario usuario = new Usuario();
+        usuario.setCorreo(correo);
+        usuario.setClave(clave);
+        usuario.setRol(rol);
+
+        usuarioRepository.register(usuario, nombres, apellidos, telefono);
     }
 
-    public Optional<Usuario> obtenerUsuarioPorId(String id) {
-        return usuarioRepository.findById(id);
+    public Usuario login(String correo, String clave) {
+        String idUsuario = usuarioRepository.login(correo, clave);
+        if (idUsuario == null) {
+            throw new IllegalArgumentException("Invalid email or password");
+        }
+
+        Usuario usuario = new Usuario();
+        Rol rol = rolRepository.findById(String.valueOf(usuario.getRol().getIdRole()));
+
+        if (rol.getIdRole() == 3) {
+            usuario = usuarioRepository.findStudentById(idUsuario);
+        } else if (rol.getIdRole() == 2) {
+            usuario = usuarioRepository.findTeacherById(idUsuario);
+        } else {
+            throw new IllegalArgumentException("Unknown role ID");
+        }
+
+        return usuario;
     }
 
-    public Usuario guardarUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
-    }
-
-    public void eliminarUsuario(String id) {
-        usuarioRepository.deleteById(id);
-    }
 }
 

@@ -16,20 +16,12 @@ public class PreguntaService {
     @Autowired
     private PreguntaRepository preguntaRepository;
 
-    public List<Pregunta> obtenerTodasLasPreguntas() {
-        return preguntaRepository.findAll();
+    public Long createQuestion(String textoPregunta, int tipoPreguntaId, int duracion, char privada, String preguntasIdPregunta) {
+        return preguntaRepository.createQuestion(textoPregunta, tipoPreguntaId, duracion, privada, preguntasIdPregunta);
     }
 
-    public Optional<Pregunta> obtenerPreguntaPorId(String id) {
-        return preguntaRepository.findById(id);
-    }
-
-    public Pregunta guardarPregunta(Pregunta pregunta) {
-        return preguntaRepository.save(pregunta);
-    }
-
-    public void eliminarPregunta(String id) {
-        preguntaRepository.deleteById(id);
+    public void associateQuestionWithExam(String examenId, Long preguntaId, float porcentaje) {
+        preguntaRepository.associateQuestionWithExam(examenId, preguntaId, porcentaje);
     }
 }
 

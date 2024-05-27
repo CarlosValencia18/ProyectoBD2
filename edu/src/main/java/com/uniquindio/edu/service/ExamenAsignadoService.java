@@ -16,20 +16,6 @@ public class ExamenAsignadoService {
     @Autowired
     private ExamenAsignadoRepository examenAsignadoRepository;
 
-    public List<ExamenAsignado> obtenerTodosLosExamenesAsignados() {
-        return examenAsignadoRepository.findAll();
-    }
 
-    public Optional<ExamenAsignado> obtenerExamenAsignadoPorId(Long id) {
-        return examenAsignadoRepository.findById(id);
-    }
-
-    public ExamenAsignado guardarExamenAsignado(ExamenAsignado examenAsignado) {
-        return examenAsignadoRepository.save(examenAsignado);
-    }
-
-    public void eliminarExamenAsignado(Long id) {
-        examenAsignadoRepository.deleteById(id);
-    }
 }
 

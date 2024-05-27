@@ -16,19 +16,5 @@ public class EstudianteService {
     @Autowired
     private EstudianteRepository estudianteRepository;
 
-    public List<Estudiante> obtenerTodosLosEstudiantes() {
-        return estudianteRepository.findAll();
-    }
 
-    public Optional<Estudiante> obtenerEstudiantePorId(String id) {
-        return estudianteRepository.findById(id);
-    }
-
-    public Estudiante guardarEstudiante(Estudiante estudiante) {
-        return estudianteRepository.save(estudiante);
-    }
-
-    public void eliminarEstudiante(String id) {
-        estudianteRepository.deleteById(id);
-    }
 }
