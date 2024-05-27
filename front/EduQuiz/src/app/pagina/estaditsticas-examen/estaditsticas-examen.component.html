@@ -1,0 +1,19 @@
+<!-- estadisticas-examen.component.html -->
+
+<head>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<div class="header">
+  <h1 class="app-name">EduQuiz</h1>
+  <h2 class="section-name">Estadísticas del Examen</h2>
+</div>
+<div class="container">
+  <h2>Estadísticas del Examen</h2>
+  <div *ngFor="let estadistica of estadisticasPreguntas">
+    <h3>{{ estadistica.pregunta }}</h3>
+    <p>Porcentaje de respuestas correctas: {{ (estadistica.correctas / estadistica.total) * 100 }}%</p>
+    <p>Número de respuestas correctas: {{ estadistica.correctas }}</p>
+    <p>Número de respuestas incorrectas: {{ estadistica.incorrectas }}</p>
+  </div>
+  <button (click)="volverAlInicio()" class="btn btn-primary">Volver al inicio</button>
+</div>

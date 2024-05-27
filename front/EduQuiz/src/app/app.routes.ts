@@ -13,6 +13,7 @@ import {PreguntaFVComponent} from "./pagina/responder/pregunta-fv/pregunta-fv.co
 import {PreguntaMRComponent} from "./pagina/responder/pregunta-mr/pregunta-mr.component";
 import {PreguntaOMComponent} from "./pagina/responder/pregunta-om/pregunta-om.component";
 import {ExamenResueltoComponent} from "./pagina/examen-resuelto/examen-resuelto.component";
+import {EstadisticasExamenComponent} from "./pagina/estaditsticas-examen/estaditsticas-examen.component";
 
 export const routes: Routes = [{
   path:'login',
@@ -30,5 +31,6 @@ export const routes: Routes = [{
 },{path:'pregunta-mr',component:PreguntaMRComponent
 },{path:'pregunta-om',component:PreguntaOMComponent
 },{path:'examen-resuelto',component:ExamenResueltoComponent
+},{path:'estadisticas-examen',component:EstadisticasExamenComponent
 }];
 
