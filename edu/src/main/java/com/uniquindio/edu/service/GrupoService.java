@@ -15,21 +15,5 @@ public class GrupoService {
 
     @Autowired
     private GrupoRepository grupoRepository;
-
-    public List<Grupo> obtenerTodosLosGrupos() {
-        return grupoRepository.findAll();
-    }
-
-    public Optional<Grupo> obtenerGrupoPorId(String id) {
-        return grupoRepository.findById(id);
-    }
-
-    public Grupo guardarGrupo(Grupo grupo) {
-        return grupoRepository.save(grupo);
-    }
-
-    public void eliminarGrupo(String id) {
-        grupoRepository.deleteById(id);
-    }
 }
 

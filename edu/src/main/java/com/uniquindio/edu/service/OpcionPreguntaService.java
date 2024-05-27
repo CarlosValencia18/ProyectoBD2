@@ -16,19 +16,4 @@ public class OpcionPreguntaService {
     @Autowired
     private OpcionPreguntaRepository opcionPreguntaRepository;
 
-    public List<OpcionPregunta> obtenerTodasLasOpcionesPregunta() {
-        return opcionPreguntaRepository.findAll();
-    }
-
-    public Optional<OpcionPregunta> obtenerOpcionPreguntaPorId(String id) {
-        return opcionPreguntaRepository.findById(id);
-    }
-
-    public OpcionPregunta guardarOpcionPregunta(OpcionPregunta opcionPregunta) {
-        return opcionPreguntaRepository.save(opcionPregunta);
-    }
-
-    public void eliminarOpcionPregunta(String id) {
-        opcionPreguntaRepository.deleteById(id);
-    }
 }

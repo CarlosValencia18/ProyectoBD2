@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-seleccionar-examen',
   standalone: true,
   templateUrl: './seleccionar-examen.component.html',
   styleUrls: ['./seleccionar-examen.component.css'],
-  imports: [CommonModule, RouterOutlet]
+  imports: [CommonModule, RouterOutlet],
 })
 export class SeleccionarExamenComponent implements OnInit {
   examenesDisponibles = [
@@ -16,9 +17,22 @@ export class SeleccionarExamenComponent implements OnInit {
     // Agrega más exámenes aquí
   ];
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    const idUsuario = history.state.idUsuario; // Obtiene idUsuario del estado de la navegación
+    const url = 'http://localhost:8081/seleccionar-examen';
+    const params = new HttpParams().set('idUsuario', idUsuario);
+
+    this.http.get<any>(url, { params }).subscribe({
+      next: (response: any) => {
+        this.examenesDisponibles = response;
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
 
   presentarExamen(examen: any): void {
     console.log('Presentando el examen:', examen.nombre);

@@ -13,20 +13,4 @@ public class TemaService {
 
     @Autowired
     private TemaRepository temaRepository;
-
-    public List<Tema> obtenerTodosLosTemas() {
-        return temaRepository.findAll();
-    }
-
-    public Optional<Tema> obtenerTemaPorId(String id) {
-        return temaRepository.findById(id);
-    }
-
-    public Tema guardarTema(Tema tema) {
-        return temaRepository.save(tema);
-    }
-
-    public void eliminarTema(String id) {
-        temaRepository.deleteById(id);
-    }
 }

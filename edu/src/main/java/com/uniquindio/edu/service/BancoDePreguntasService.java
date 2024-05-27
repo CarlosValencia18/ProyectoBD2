@@ -16,19 +16,4 @@ public class BancoDePreguntasService {
     @Autowired
     private BancoDePreguntasRepository bancoDePreguntasRepository;
 
-    public List<BancoDePreguntas> obtenerTodosLosBancosDePreguntas() {
-        return bancoDePreguntasRepository.findAll();
-    }
-
-    public Optional<BancoDePreguntas> obtenerBancoDePreguntasPorId(String id) {
-        return bancoDePreguntasRepository.findById(id);
-    }
-
-    public BancoDePreguntas guardarBancoDePreguntas(BancoDePreguntas bancoDePreguntas) {
-        return bancoDePreguntasRepository.save(bancoDePreguntas);
-    }
-
-    public void eliminarBancoDePreguntas(String id) {
-        bancoDePreguntasRepository.deleteById(id);
-    }
 }

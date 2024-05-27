@@ -14,7 +14,7 @@ public class RolRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    private static final String SELECT_ROLE_BY_ID_SQL = "SELECT id_rol, nombre FROM Roles WHERE id_rol = ?";
+    private static final String SELECT_ROLE_BY_ID_SQL = "SELECT id_role, role FROM Roles WHERE id_role = ?";
 
     public Rol findById(String roleId) {
         return jdbcTemplate.queryForObject(SELECT_ROLE_BY_ID_SQL, new RolRowMapper(), roleId);
@@ -24,8 +24,8 @@ public class RolRepository {
         @Override
         public Rol mapRow(ResultSet rs, int rowNum) throws SQLException {
             Rol rol = new Rol();
-            rol.setIdRole(Integer.parseInt(rs.getString("id_rol")));
-            rol.setRole(rs.getString("nombre"));
+            rol.setIdRole(Integer.parseInt(rs.getString("id_role")));
+            rol.setRole(rs.getString("role"));
             return rol;
         }
     }

@@ -16,6 +16,5 @@ public class ExamenAsignadoService {
     @Autowired
     private ExamenAsignadoRepository examenAsignadoRepository;
 
-
 }
 

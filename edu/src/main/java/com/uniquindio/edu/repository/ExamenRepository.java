@@ -33,7 +33,7 @@ public class ExamenRepository {
     }
 
     public List<Examen> findPendingExamsByStudentId(String studentId) {
-        return jdbcTemplate.query(FIND_PENDING_EXAMS_BY_STUDENT_ID_SQL, new Object[]{studentId}, new ExamenRowMapper());
+        return jdbcTemplate.query(FIND_PENDING_EXAMS_BY_STUDENT_ID_SQL, new Object[]{studentId}, new ExamenPendienteRowMapper());
     }
 
     public String createExam(String nombre, String descripcion, String categoria, int duracion, int numPreguntas, int numPreguntasAleatorias, float umbralAprobacion, String docenteId) {
@@ -73,6 +73,18 @@ public class ExamenRepository {
             return examen;
         }
     }
+
+    private static class ExamenPendienteRowMapper implements RowMapper<Examen> {
+        @Override
+        public Examen mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Examen examen = new Examen();
+            examen.setIdExamen(rs.getString("id_examen"));
+            examen.setNombre(rs.getString("nombre"));
+            examen.setDescripcion(rs.getString("descripcion"));
+            return examen;
+        }
+    }
+
     private static class BancoPreguntasRowMapper implements RowMapper<BancoDePreguntas> {
         @Override
         public BancoDePreguntas mapRow(ResultSet rs, int rowNum) throws SQLException {
