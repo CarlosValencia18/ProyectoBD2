@@ -1,0 +1,33 @@
+<head>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+
+<div class="header">
+  <h1 class="app-name">EduQuiz</h1>
+  <div>
+    <h2 class="section-name">Docente</h2>
+    <div class="right-section">
+      <a href="#" class="logout-link" (click)="cerrarSesion($event)">Cerrar sesión</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h3>Exámenes</h3>
+  <div *ngFor="let examen of examenesCreados" class="examen-container">
+    <h4>{{examen.nombre}}</h4>
+    <p>{{examen.descripcion}}</p>
+    <button class="btn btn-transparent" (click)="verExamen(examen)">Ver</button>
+  </div>
+  <button class="btn btn-transparent" (click)="crearExamen()">+ Crear examen</button>
+
+  <h3>Bancos de preguntas</h3>
+  <div *ngFor="let banco of bancosDePreguntas" class="banco-container">
+    <h4>{{banco.nombre}}</h4>
+    <p>{{banco.descripcion}}</p>
+    <button class="btn btn-transparent" (click)="verBanco(banco)">Ver</button>
+  </div>
+  <button class="btn btn-transparent" (click)="crearBanco()">+ Añadir banco de preguntas</button>
+</div>
+<router-outlet></router-outlet>

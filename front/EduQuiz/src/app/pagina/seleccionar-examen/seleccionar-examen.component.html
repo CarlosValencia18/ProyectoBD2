@@ -1,0 +1,17 @@
+<head>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<div class="header">
+  <h1 class="app-name">EduQuiz</h1>
+  <h2 class="section-name">Seleccionar Examen</h2>
+  <a href="#" class="logout-link" (click)="cerrarSesion($event)">Cerrar sesión</a>
+</div>
+
+<div class="container">
+  <div *ngFor="let examen of examenesDisponibles" class="examen-container">
+    <h4>{{examen.nombre}}</h4>
+    <p>{{examen.descripcion}}</p>
+    <button class="btn btn-primary" (click)="presentarExamen(examen)">Presentar Examen</button>
+  </div>
+</div>
+<router-outlet></router-outlet>

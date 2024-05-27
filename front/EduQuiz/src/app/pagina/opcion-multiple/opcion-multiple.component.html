@@ -1,0 +1,23 @@
+<div class="container">
+  <form [formGroup]="preguntaForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="enunciado">Enunciado</label>
+      <input type="text" id="enunciado" formControlName="enunciado" class="form-control">
+    </div>
+
+    <h3>Opciones</h3> <!-- Título para separar las opciones -->
+
+    <div formArrayName="opciones" *ngFor="let opcion of opciones.controls; let i = index" class="form-group">
+      <div [formGroupName]="i" class="option-group">
+        <input type="text" formControlName="texto" class="form-control">
+        <input type="radio" [value]="i" formControlName="correcta"> <!-- Radio button para marcar la opción como correcta -->
+        <button type="button" class="btn btn-danger" (click)="removeOpcion(i)">Eliminar</button> <!-- Botón de eliminar -->
+      </div>
+    </div>
+
+    <!-- Separador para los botones -->
+    <div class="button-group">
+      <button type="button" class="btn btn-secondary" (click)="addOpcion()">Añadir opción</button>
+    </div>
+  </form>
+</div>

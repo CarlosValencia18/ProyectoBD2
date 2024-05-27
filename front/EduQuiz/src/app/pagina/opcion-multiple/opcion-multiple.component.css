@@ -1,0 +1,61 @@
+/* Ajustes de estilos para opción múltiple */
+.option-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.option-group input[type="text"] {
+  margin-right: 10px;
+  flex-grow: 1;
+}
+
+.option-group input[type="radio"] {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.option-group button {
+  margin-left: 10px;
+}
+
+
+button[type="submit"],
+button[type="button"] {
+  background-color: #0975f4;
+  border-color: #0975f4;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+button[type="submit"]:hover,
+button[type="button"]:hover {
+  background-color: #0975f4;
+  border-color: #0975f4;
+}
+
+button[type="button"].btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  margin-right: 0.5rem;
+}
+
+button[type="button"].btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+button[type="button"].btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  padding: 0.5rem;
+  margin-left: 1rem;
+}
+
+button[type="button"].btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
