@@ -18,6 +18,9 @@ public class ExamenService {
     @Autowired
     private ExamenRepository examenRepository;
 
+    @Autowired
+    private PreguntaRepository preguntaRepository;
+
     public List<Examen> getExamsByTeacherId(String teacherId) {
         return examenRepository.findExamsByTeacherId(teacherId);
     }
@@ -36,6 +39,10 @@ public class ExamenService {
 
     public void assignExam(String examenId, String grupoId, Date fechaInicio, Date fechaFin, int peso) {
         examenRepository.assignExam(examenId, grupoId, fechaInicio, fechaFin, peso);
+    }
+
+    public List<Pregunta> getPreguntas(String idExamen) {
+        return preguntaRepository.findPreguntasByExamenId(idExamen);
     }
 }
 

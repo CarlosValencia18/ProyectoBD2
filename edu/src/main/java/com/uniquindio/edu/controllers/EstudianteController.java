@@ -1,6 +1,7 @@
 package com.uniquindio.edu.controllers;
 
 import com.uniquindio.edu.model.Examen;
+import com.uniquindio.edu.model.Pregunta;
 import com.uniquindio.edu.service.ExamenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,5 +26,12 @@ public class EstudianteController {
         List<Examen> examenes = examenService.getPendingExams(idUsuario);
         System.out.println(examenes);
         return ResponseEntity.ok(examenes);
+    }
+
+    @GetMapping("/presentar-examen")
+    public ResponseEntity<List<Pregunta>> presentarExamen(@RequestParam("idExamen") String idExamen) {
+        System.out.println(idExamen);
+        List<Pregunta> preguntas = examenService.getPreguntas(idExamen);
+        return ResponseEntity.ok(preguntas);
     }
 }
