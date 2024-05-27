@@ -16,20 +16,5 @@ public class ContenidoService {
     @Autowired
     private ContenidoRepository contenidoRepository;
 
-    public List<Contenido> obtenerTodosLosContenidos() {
-        return contenidoRepository.findAll();
-    }
-
-    public Optional<Contenido> obtenerContenidoPorId(String id) {
-        return contenidoRepository.findById(id);
-    }
-
-    public Contenido guardarContenido(Contenido contenido) {
-        return contenidoRepository.save(contenido);
-    }
-
-    public void eliminarContenido(String id) {
-        contenidoRepository.deleteById(id);
-    }
 }
 

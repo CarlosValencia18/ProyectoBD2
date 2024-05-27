@@ -18,20 +18,5 @@ public class RolService {
     @Autowired
     private RolRepository rolRepository;
 
-    public List<Rol> obtenerTodosLosRoles() {
-        return rolRepository.findAll();
-    }
-
-    public Optional<Rol> obtenerRolPorId(Integer id) {
-        return rolRepository.findById(id);
-    }
-
-    public Rol guardarRol(Rol rol) {
-        return rolRepository.save(rol);
-    }
-
-    public void eliminarRol(Integer id) {
-        rolRepository.deleteById(id);
-    }
 }
 

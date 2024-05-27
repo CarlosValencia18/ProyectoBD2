@@ -32,8 +32,7 @@ public class UsuarioService {
         if (idUsuario == null) {
             throw new IllegalArgumentException("Invalid email or password");
         }
-
-        Usuario usuario = new Usuario();
+        Usuario usuario = usuarioRepository.findById(idUsuario);
         Rol rol = rolRepository.findById(String.valueOf(usuario.getRol().getIdRole()));
 
         if (rol.getIdRole() == 3) {

@@ -8,14 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "TEMAS")
 public class Tema {
-    @Id
-    @Column(name = "ID_TEMA")
+
     private String idTema;
 
-    @Column(name = "NOMBRE")
     private String nombre;
 }
 

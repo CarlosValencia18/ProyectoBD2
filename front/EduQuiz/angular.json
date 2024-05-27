@@ -59,6 +59,9 @@
             "production": {
               "buildTarget": "EduQuiz:build:production"
             },
+            "options": {
+              "proxyConfig": "proxy.conf.json"
+            },
             "development": {
               "buildTarget": "EduQuiz:build:development"
             }

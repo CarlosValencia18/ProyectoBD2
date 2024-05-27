@@ -16,20 +16,5 @@ public class UnidadService {
     @Autowired
     private UnidadRepository unidadRepository;
 
-    public List<Unidad> obtenerTodasLasUnidades() {
-        return unidadRepository.findAll();
-    }
-
-    public Optional<Unidad> obtenerUnidadPorId(String id) {
-        return unidadRepository.findById(id);
-    }
-
-    public Unidad guardarUnidad(Unidad unidad) {
-        return unidadRepository.save(unidad);
-    }
-
-    public void eliminarUnidad(String id) {
-        unidadRepository.deleteById(id);
-    }
 }
 

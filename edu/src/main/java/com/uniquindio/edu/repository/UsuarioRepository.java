@@ -1,5 +1,7 @@
 package com.uniquindio.edu.repository;
 
+import com.uniquindio.edu.model.Docente;
+import com.uniquindio.edu.model.Estudiante;
 import com.uniquindio.edu.model.Rol;
 import com.uniquindio.edu.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,8 @@ public class UsuarioRepository {
 
     private static final String INSERT_USER_SQL = "CALL sp_registrar_usuario(?, ?, ?, ?, ?, ?)";
     private static final String LOGIN_USER_SQL = "SELECT autenticar_usuario(?, ?) FROM DUAL";
-    private static final String FIND_STUDENT_BY_ID_SQL = "SELECT * FROM VW_DETALLES_ESTUDIANTE WHERE id_estudiante = ?";
-    private static final String FIND_TEACHER_BY_ID_SQL = "SELECT * FROM VW_DETALLES_DOCENTE WHERE id_docente = ?";
+    private static final String FIND_STUDENT_BY_ID_SQL = "SELECT * FROM VW_ESTUDIANTES WHERE id_usuario = ?";
+    private static final String FIND_TEACHER_BY_ID_SQL = "SELECT * FROM VW_PROFESORES WHERE id_usuario = ?";
 
     public void register(Usuario usuario, String nombres, String apellidos, String telefono) {
         jdbcTemplate.update(INSERT_USER_SQL,
@@ -35,11 +37,15 @@ public class UsuarioRepository {
     }
 
     public Usuario findStudentById(String idUsuario) {
-        return jdbcTemplate.queryForObject(FIND_STUDENT_BY_ID_SQL, new Object[]{idUsuario}, new UsuarioRowMapper());
+        return jdbcTemplate.queryForObject(FIND_STUDENT_BY_ID_SQL, new Object[]{idUsuario}, new EstudianteRowMapper());
     }
 
     public Usuario findTeacherById(String idUsuario) {
-        return jdbcTemplate.queryForObject(FIND_TEACHER_BY_ID_SQL, new Object[]{idUsuario}, new UsuarioRowMapper());
+        return jdbcTemplate.queryForObject(FIND_TEACHER_BY_ID_SQL, new Object[]{idUsuario}, new DocenteRowMapper());
+    }
+
+    public Usuario findById(String idUsuario) {
+        return jdbcTemplate.queryForObject("SELECT * FROM USUARIOS WHERE id_usuario = ?", new Object[]{idUsuario}, new UsuarioRowMapper());
     }
 
     private static class UsuarioRowMapper implements RowMapper<Usuario> {
@@ -52,9 +58,30 @@ public class UsuarioRepository {
 
             Rol rol = new Rol();
             rol.setIdRole(Integer.parseInt(rs.getString("Roles_id_role")));
-            rol.setRole(rs.getString("nombre_rol"));
 
             usuario.setRol(rol);
+            return usuario;
+        }
+    }
+
+    private static class EstudianteRowMapper implements RowMapper<Usuario> {
+        @Override
+        public Usuario mapRow(ResultSet rs, int rowNum) throws SQLException {
+            System.out.println(rs.getString("id_estudiante"));
+            Usuario usuario = new Estudiante();
+            usuario.setIdUsuario(rs.getString("id_estudiante"));
+            usuario.setCorreo(rs.getString("correo"));
+            return usuario;
+        }
+    }
+
+    private static class DocenteRowMapper implements RowMapper<Usuario> {
+        @Override
+        public Usuario mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+            Usuario usuario = new Docente();
+            usuario.setIdUsuario(rs.getString("id_docente"));
+            usuario.setCorreo(rs.getString("correo"));
             return usuario;
         }
     }

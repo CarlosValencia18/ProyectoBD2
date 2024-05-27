@@ -16,20 +16,5 @@ public class DocenteService {
     @Autowired
     private DocenteRepository docenteRepository;
 
-    public List<Docente> obtenerTodosLosDocentes() {
-        return docenteRepository.findAll();
-    }
-
-    public Optional<Docente> obtenerDocentePorId(String id) {
-        return docenteRepository.findById(id);
-    }
-
-    public Docente guardarDocente(Docente docente) {
-        return docenteRepository.save(docente);
-    }
-
-    public void eliminarDocente(String id) {
-        docenteRepository.deleteById(id);
-    }
 }
 

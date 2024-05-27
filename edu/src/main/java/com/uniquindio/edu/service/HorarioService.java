@@ -16,20 +16,5 @@ public class HorarioService {
     @Autowired
     private HorarioRepository horarioRepository;
 
-    public List<Horario> obtenerTodosLosHorarios() {
-        return horarioRepository.findAll();
-    }
-
-    public Optional<Horario> obtenerHorarioPorId(String id) {
-        return horarioRepository.findById(id);
-    }
-
-    public Horario guardarHorario(Horario horario) {
-        return horarioRepository.save(horario);
-    }
-
-    public void eliminarHorario(String id) {
-        horarioRepository.deleteById(id);
-    }
 }
 
