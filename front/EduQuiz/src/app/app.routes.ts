@@ -14,6 +14,7 @@ import {PreguntaMRComponent} from "./pagina/responder/pregunta-mr/pregunta-mr.co
 import {PreguntaOMComponent} from "./pagina/responder/pregunta-om/pregunta-om.component";
 import {ExamenResueltoComponent} from "./pagina/examen-resuelto/examen-resuelto.component";
 import {EstadisticasExamenComponent} from "./pagina/estaditsticas-examen/estaditsticas-examen.component";
+import {AsignarExamenComponent} from "./pagina/asignar-examen/asignar-examen.component";
 
 export const routes: Routes = [{
   path:'login',
@@ -32,5 +33,6 @@ export const routes: Routes = [{
 },{path:'pregunta-om',component:PreguntaOMComponent
 },{path:'examen-resuelto',component:ExamenResueltoComponent
 },{path:'estadisticas-examen',component:EstadisticasExamenComponent
-}];
+},{path:'asignar-examen',component:AsignarExamenComponent}
+];
 

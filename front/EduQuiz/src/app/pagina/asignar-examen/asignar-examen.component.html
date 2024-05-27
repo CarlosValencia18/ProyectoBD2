@@ -1,0 +1,30 @@
+<head>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<div class="header">
+  <h1 class="app-name">EduQuiz</h1>
+  <div>
+    <h2 class="section-name">Docente</h2>
+    <div class="right-section">
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <form #assignForm="ngForm" (ngSubmit)="onSubmit(assignForm)">
+    <div class="form-group">
+      <label for="group">Grupo:</label>
+      <select id="group" name="group" ngModel class="form-control">
+        <!-- Aquí puede agregar las opciones para los grupos -->
+        <option value="1">Grupo 1</option>
+        <option value="2">Grupo 2</option>
+        <!-- etc. -->
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="weight">Peso:</label>
+      <input type="number" id="weight" name="weight" ngModel class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Asignar</button>
+  </form>
+</div>

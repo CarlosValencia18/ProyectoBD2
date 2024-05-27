@@ -15,20 +15,22 @@ import {Router} from "@angular/router";// Importa CommonModule
 })
 export class InicioDocenteComponent implements OnInit {
   examenesCreados = [
-    { nombre: 'Examen 1', descripcion: 'Descripción del Examen 1' },
-    { nombre: 'Examen 2', descripcion: 'Descripción del Examen 2' },
+    {nombre: 'Examen 1', descripcion: 'Descripción del Examen 1'},
+    {nombre: 'Examen 2', descripcion: 'Descripción del Examen 2'},
     // Agrega más exámenes aquí
   ];
 
   bancosDePreguntas = [
-    { nombre: 'Banco 1', descripcion: 'Descripción del Banco 1' },
-    { nombre: 'Banco 2', descripcion: 'Descripción del Banco 2' },
+    {nombre: 'Banco 1', descripcion: 'Descripción del Banco 1'},
+    {nombre: 'Banco 2', descripcion: 'Descripción del Banco 2'},
     // Agrega más bancos aquí
   ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   verExamen(examen: any): void {
     console.log('Viendo el examen:', examen.nombre);
@@ -49,5 +51,9 @@ export class InicioDocenteComponent implements OnInit {
   cerrarSesion(event: Event): void {
     event.preventDefault();
     console.log('Cerrando sesión...');
+  }
+
+  asignarExamen() {
+    this.router.navigate(['/asignar-examen'])
   }
 }
