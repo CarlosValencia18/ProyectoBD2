@@ -25,7 +25,7 @@ public class Pregunta {
 
     private Pregunta preguntaPadre;
 
-    private TipoPregunta tipoPregunta;
+    private String tipoPregunta;
 
     private List<OpcionPregunta> opciones;
 }

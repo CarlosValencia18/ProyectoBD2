@@ -70,16 +70,21 @@ export class PresentarExamenComponent implements OnInit {
         ],
       },
     ];
-    this.iniciarTemporizador(
-      this.preguntas[this.currentQuestionIndex].duracion
-    );
     const idExamen = history.state.idExamen; // Obtiene idExamen del estado de la navegación
     const url = 'http://localhost:8081/presentar-examen';
     const params = new HttpParams().set('idExamen', idExamen);
 
     this.http.get<any>(url, { params }).subscribe({
       next: (response: any) => {
-        this.preguntas = response;
+        //console.log(response);
+        this.preguntas = response.map((pregunta: any) => ({
+          ...pregunta,
+          visible: true, // Agrega la propiedad visible a cada pregunta
+        }));
+        this.iniciarTemporizador(
+          this.preguntas[this.currentQuestionIndex].duracion
+        );
+        console.log(this.preguntas);
       },
       error: (error) => {
         console.error(error);

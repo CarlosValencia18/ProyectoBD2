@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {Router} from "@angular/router";// Importa CommonModule
+import { Router } from '@angular/router';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-inicio-docente',
   standalone: true,
   imports: [
-    CommonModule,  // Añade CommonModule aquí
-    RouterOutlet
+    CommonModule, // Añade CommonModule aquí
+    RouterOutlet,
   ],
   templateUrl: './inicio-docente.component.html',
-  styleUrls: ['./inicio-docente.component.css']
+  styleUrls: ['./inicio-docente.component.css'],
 })
 export class InicioDocenteComponent implements OnInit {
   examenesCreados = [
@@ -26,9 +27,23 @@ export class InicioDocenteComponent implements OnInit {
     // Agrega más bancos aquí
   ];
 
-  constructor(private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    const idUsuario = history.state.idUsuario; // Obtiene idUsuario del estado de la navegación
+    const url = 'http://localhost:8081/inicio-docente';
+    const params = new HttpParams().set('idUsuario', idUsuario);
+
+    this.http.get<any>(url, { params }).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.examenesCreados = response;
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
 
   verExamen(examen: any): void {
     console.log('Viendo el examen:', examen.nombre);
@@ -36,6 +51,7 @@ export class InicioDocenteComponent implements OnInit {
 
   crearExamen(): void {
     console.log('Creando un nuevo examen...');
+    this.router.navigate(['/crear-examen']);
   }
 
   verBanco(banco: any): void {
@@ -49,5 +65,6 @@ export class InicioDocenteComponent implements OnInit {
   cerrarSesion(event: Event): void {
     event.preventDefault();
     console.log('Cerrando sesión...');
+    this.router.navigate(['/login']);
   }
 }

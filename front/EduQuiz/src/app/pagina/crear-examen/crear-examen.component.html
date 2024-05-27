@@ -1,4 +1,5 @@
 <!-- crear-examen.component.html -->
+
 <head>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -31,16 +32,12 @@
 
     <div class="form-group">
       <label for="questionCount">Cantidad de preguntas aleatorias</label>
-      <input type="number" class="form-control" id="questionCount" formControlName="questionCount" required>
+      <input type="number" class="form-control" id="questionCount" formControlName="questionCount">
     </div>
 
     <div class="form-group">
-      <label for="examDateTime">Fecha y hora del examen</label>
-      <input type="datetime-local" class="form-control" id="examDateTime" formControlName="examDateTime" required>
-    </div>
-    <div class="form-group">
       <label for="examDuration">Duración del examen (en minutos)</label>
-      <input type="number" class="form-control" id="examDuration" formControlName="examDuration" required>
+      <input type="number" class="form-control" id="examDuration" formControlName="examDuration">
     </div>
 
     <!-- Sección desplazable con las preguntas -->
@@ -49,17 +46,17 @@
     <div class="form-group" formArrayName="preguntas">
       <label>Preguntas</label>
       <div *ngFor="let pregunta of preguntas.controls; let i = index" [formGroupName]="i">
-        <p>{{ pregunta.get('texto')?.value }}</p>
+        <p>{{ pregunta.get('enunciado')?.value }}</p>
         <label for="porcentaje{{i}}">Porcentaje</label>
         <input type="number" id="porcentaje{{i}}" formControlName="porcentaje">
       </div>
     </div>
     <button type="button" class="btn btn-secondary" (click)="addPregunta()">Crear otra pregunta</button>
     <!-- Botón para seleccionar un banco de preguntas -->
-    <button type="button" class="btn btn-secondary" (click)="onSelectQuestionBank()">Seleccionar banco de preguntas</button>
+    <!-- <button type="button" class="btn btn-secondary" (click)="onSelectQuestionBank()">Seleccionar banco de
+      preguntas</button> -->
 
-
-    <button type="submit" class="btn btn-primary" [disabled]="!examForm.valid">Siguiente</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!examForm.valid">Crear</button>
   </form>
 </div>
 <router-outlet></router-outlet>

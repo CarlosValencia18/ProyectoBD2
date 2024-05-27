@@ -75,6 +75,7 @@ public class PreguntaRepository {
                     pregunta.setDuracion(rs.getInt("duracion"));
                     pregunta.setPorcentaje(rs.getInt("porcentaje"));
                     pregunta.setPrivada(rs.getBoolean("privada"));
+                    pregunta.setTipoPregunta(rs.getString("tipo_pregunta_id_tipo"));
                     pregunta.setOpciones(new ArrayList<>()); // Inicializar la lista de opciones
                     preguntaMap.put(idPregunta, pregunta);
                 }

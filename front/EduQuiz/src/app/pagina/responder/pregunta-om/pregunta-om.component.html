@@ -1,8 +1,8 @@
 <div class="container">
   <form>
     <div class="form-group" *ngFor="let opcion of pregunta.opciones">
-      <input type="radio" [value]="opcion.texto" name="opcion" (change)="emitAnswer(opcion.texto)">
-      <label>{{ opcion.texto }}</label>
+      <input type="radio" [value]="opcion.textoOpcion" name="opcion" (change)="emitAnswer(opcion.textoOpcion)">
+      <label>{{ opcion.textoOpcion }}</label>
     </div>
   </form>
 </div>

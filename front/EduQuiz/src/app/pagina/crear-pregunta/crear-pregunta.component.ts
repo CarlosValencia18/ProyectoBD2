@@ -1,22 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
-import {MultipleRespuestaComponent} from "../multiple-respuesta/multiple-respuesta.component";
-import {CommonModule} from "@angular/common";
-import {OpcionMultipleComponent} from "../opcion-multiple/opcion-multiple.component";
-import {FalsoVerdaderoComponent} from "../falso-verdadero/falso-verdadero.component";
+import { MultipleRespuestaComponent } from '../multiple-respuesta/multiple-respuesta.component';
+import { CommonModule } from '@angular/common';
+import { OpcionMultipleComponent } from '../opcion-multiple/opcion-multiple.component';
+import { FalsoVerdaderoComponent } from '../falso-verdadero/falso-verdadero.component';
 import { ViewChild } from '@angular/core';
-
-
+import { QuestionService } from '../../services/question.service';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-crear-pregunta',
   templateUrl: './crear-pregunta.component.html',
   imports: [
-    ReactiveFormsModule, RouterOutlet, MultipleRespuestaComponent, CommonModule, OpcionMultipleComponent, FalsoVerdaderoComponent, FormsModule
+    ReactiveFormsModule,
+    RouterOutlet,
+    MultipleRespuestaComponent,
+    CommonModule,
+    OpcionMultipleComponent,
+    FalsoVerdaderoComponent,
+    FormsModule,
   ],
-  styleUrls: ['./crear-pregunta.component.css']
+  styleUrls: ['./crear-pregunta.component.css'],
 })
 export class CrearPreguntaComponent implements OnInit {
   questionForm: FormGroup = new FormGroup({});
@@ -24,18 +36,25 @@ export class CrearPreguntaComponent implements OnInit {
   showOpcionMultipleContainer = false;
   showFalsoVerdaderoContainer = false;
 
-  @ViewChild(FalsoVerdaderoComponent) falsoVerdaderoComponent!: FalsoVerdaderoComponent;
-  @ViewChild(OpcionMultipleComponent) opcionMultipleComponent!: OpcionMultipleComponent;
-  @ViewChild(MultipleRespuestaComponent) multipleRespuestaComponent!: MultipleRespuestaComponent;
+  @ViewChild(FalsoVerdaderoComponent)
+  falsoVerdaderoComponent!: FalsoVerdaderoComponent;
+  @ViewChild(OpcionMultipleComponent)
+  opcionMultipleComponent!: OpcionMultipleComponent;
+  @ViewChild(MultipleRespuestaComponent)
+  multipleRespuestaComponent!: MultipleRespuestaComponent;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private questionService: QuestionService
+  ) {}
 
   ngOnInit() {
     this.questionForm = this.formBuilder.group({
       questionType: ['', Validators.required],
-      duracion:['',Validators.required],
+      duracion: [''],
       //questionStatement: ['', Validators.required],
-      isPublic: [false]
+      isPublic: [false],
     });
   }
 
@@ -47,7 +66,10 @@ export class CrearPreguntaComponent implements OnInit {
       let questionData;
       if (questionType === 'trueFalse' && this.falsoVerdaderoComponent) {
         questionData = this.falsoVerdaderoComponent.getFormData();
-      } else if (questionType === 'multipleChoice' && this.opcionMultipleComponent) {
+      } else if (
+        questionType === 'multipleChoice' &&
+        this.opcionMultipleComponent
+      ) {
         questionData = this.opcionMultipleComponent.getFormData();
       } else if (this.multipleRespuestaComponent) {
         questionData = this.multipleRespuestaComponent.getFormData();
@@ -55,14 +77,19 @@ export class CrearPreguntaComponent implements OnInit {
 
       const finalData = {
         ...this.questionForm.value,
-        ...questionData
+        ...questionData,
       };
 
+      this.questionService.addQuestion(finalData);
+
       console.log('Datos finales:', finalData);
-      // Aquí puedes enviar los datos finales a tu servidor o hacer lo que necesites con ellos
+
+      this.router.navigate(['/crear-examen']);
     } else {
-      console.log('El formulario no está completo. Faltan los siguientes campos:');
-      Object.keys(this.questionForm.controls).forEach(controlName => {
+      console.log(
+        'El formulario no está completo. Faltan los siguientes campos:'
+      );
+      Object.keys(this.questionForm.controls).forEach((controlName) => {
         const control = this.questionForm.get(controlName);
         if (control && control.invalid) {
           console.log(controlName);
@@ -70,7 +97,6 @@ export class CrearPreguntaComponent implements OnInit {
       });
     }
   }
-
 
   toggleQuestionContainers(): void {
     const questionControl = this.questionForm.get('questionType');

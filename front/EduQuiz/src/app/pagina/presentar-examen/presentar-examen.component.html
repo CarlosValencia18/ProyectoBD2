@@ -1,4 +1,5 @@
 <!-- presentar-examen.component.html -->
+
 <head>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -11,17 +12,20 @@
     Tiempo restante: {{ contador }} segundos
   </div>
   <div *ngIf="preguntas[currentQuestionIndex].visible">
-    <div *ngIf="preguntas[currentQuestionIndex].type === 'multipleChoice'">
-      <h3>{{ preguntas[currentQuestionIndex].enunciado }}</h3>
-      <app-pregunta-om [pregunta]="preguntas[currentQuestionIndex]" (answer)="onAnswerSelected($event)"></app-pregunta-om>
+    <div *ngIf="preguntas[currentQuestionIndex].tipoPregunta === '1'">
+      <h3>{{ preguntas[currentQuestionIndex].textoPregunta }}</h3>
+      <app-pregunta-om [pregunta]="preguntas[currentQuestionIndex]"
+        (answer)="onAnswerSelected($event)"></app-pregunta-om>
     </div>
-    <div *ngIf="preguntas[currentQuestionIndex].type === 'multipleAnswers'">
-      <h3>{{ preguntas[currentQuestionIndex].enunciado }}</h3>
-      <app-pregunta-mr [pregunta]="preguntas[currentQuestionIndex]" (answer)="onAnswerSelected($event)"></app-pregunta-mr>
+    <div *ngIf="preguntas[currentQuestionIndex].tipoPregunta === '2'">
+      <h3>{{ preguntas[currentQuestionIndex].textoPregunta }}</h3>
+      <app-pregunta-mr [pregunta]="preguntas[currentQuestionIndex]"
+        (answer)="onAnswerSelected($event)"></app-pregunta-mr>
     </div>
-    <div *ngIf="preguntas[currentQuestionIndex].type === 'trueFalse'">
-      <h3>{{ preguntas[currentQuestionIndex].enunciado }}</h3>
-      <app-pregunta-fv [pregunta]="preguntas[currentQuestionIndex]" (answer)="onAnswerSelected($event)"></app-pregunta-fv>
+    <div *ngIf="preguntas[currentQuestionIndex].tipoPregunta === '3'">
+      <h3>{{ preguntas[currentQuestionIndex].textoPregunta }}</h3>
+      <app-pregunta-fv [pregunta]="preguntas[currentQuestionIndex]"
+        (answer)="onAnswerSelected($event)"></app-pregunta-fv>
     </div>
   </div>
   <button class="btn btn-primary" (click)="prevQuestion()" [disabled]="currentQuestionIndex === 0">Anterior</button>
