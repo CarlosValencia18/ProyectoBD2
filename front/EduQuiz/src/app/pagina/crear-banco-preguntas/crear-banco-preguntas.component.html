@@ -13,7 +13,6 @@
   <div *ngFor="let pregunta of preguntasCreadas" class="pregunta-container">
     <h4>{{pregunta.titulo}}</h4>
     <p>{{pregunta.descripcion}}</p>
-    <button class="btn btn-primary" (click)="editarPregunta(pregunta)">Editar Pregunta</button>
   </div>
   <button class="btn btn-transparent" (click)="crearPregunta()">+ Crear pregunta</button>
 </div>

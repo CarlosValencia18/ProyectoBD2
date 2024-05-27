@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import {MultipleRespuestaComponent} from "../multiple-respuesta/multiple-respuesta.component";
 import {CommonModule} from "@angular/common";
@@ -14,7 +14,7 @@ import { ViewChild } from '@angular/core';
   selector: 'app-crear-pregunta',
   templateUrl: './crear-pregunta.component.html',
   imports: [
-    ReactiveFormsModule, RouterOutlet, MultipleRespuestaComponent,CommonModule,OpcionMultipleComponent,FalsoVerdaderoComponent
+    ReactiveFormsModule, RouterOutlet, MultipleRespuestaComponent, CommonModule, OpcionMultipleComponent, FalsoVerdaderoComponent, FormsModule
   ],
   styleUrls: ['./crear-pregunta.component.css']
 })
@@ -33,6 +33,7 @@ export class CrearPreguntaComponent implements OnInit {
   ngOnInit() {
     this.questionForm = this.formBuilder.group({
       questionType: ['', Validators.required],
+      duracion:['',Validators.required],
       //questionStatement: ['', Validators.required],
       isPublic: [false]
     });
