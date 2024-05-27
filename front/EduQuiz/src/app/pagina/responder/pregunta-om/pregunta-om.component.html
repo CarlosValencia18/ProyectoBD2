@@ -1,0 +1,11 @@
+<div class="container">
+  <form>
+    <div class="form-group" *ngFor="let opcion of pregunta.opciones">
+      <input type="radio" [value]="opcion.texto" name="opcion" (change)="emitAnswer(opcion.texto)">
+      <label>{{ opcion.texto }}</label>
+    </div>
+  </form>
+</div>
+
+
+<router-outlet></router-outlet>

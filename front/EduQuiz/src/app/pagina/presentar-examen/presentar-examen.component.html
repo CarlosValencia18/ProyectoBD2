@@ -1,1 +1,23 @@
-<p>presentar-examen works!</p>
+<!-- presentar-examen.component.html -->
+<head>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<div class="header">
+  <h1 class="app-name">EduQuiz</h1>
+  <h2 class="section-name">Presentar Examen</h2>
+</div>
+<div class="container d-flex justify-content-center">
+  <div *ngIf="preguntas[currentQuestionIndex].type === 'multipleChoice'">
+    <h3>{{ preguntas[currentQuestionIndex].enunciado }}</h3>
+    <app-pregunta-om [pregunta]="preguntas[currentQuestionIndex]" (answer)="onAnswerSelected($event)"></app-pregunta-om>
+  </div>
+  <div *ngIf="preguntas[currentQuestionIndex].type === 'multipleAnswers'">
+    <h3>{{ preguntas[currentQuestionIndex].enunciado }}</h3>
+    <app-pregunta-mr [pregunta]="preguntas[currentQuestionIndex]" (answer)="onAnswerSelected($event)"></app-pregunta-mr>
+  </div>
+  <div *ngIf="preguntas[currentQuestionIndex].type === 'trueFalse'">
+    <h3>{{ preguntas[currentQuestionIndex].enunciado }}</h3>
+    <app-pregunta-fv [pregunta]="preguntas[currentQuestionIndex]" (answer)="onAnswerSelected($event)"></app-pregunta-fv>
+  </div>
+  <button class="btn btn-primary" (click)="prevQuestion()" [disabled]="currentQuestionIndex === 0">Anterior</button>
+  <button class="btn btn-primary" (click)="enviarRespuestaYSiguientePregunta()">Siguiente</button></div>

@@ -1,0 +1,9 @@
+<!-- pregunta-multiple-respuesta.component.html -->
+<div class="container">
+    <div class="form-group" *ngFor="let opcion of pregunta.opciones; let i = index">
+      <input [(ngModel)]="opcion.selected" type="checkbox" [value]="opcion.texto" name="opcion_{{ i }}" [ngModelOptions]="{standalone: true}" (change)="emitAnswer()">
+      <label>{{ opcion.texto }}</label>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

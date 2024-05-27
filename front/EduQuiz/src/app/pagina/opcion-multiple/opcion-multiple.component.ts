@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./opcion-multiple.component.css']
 })
 export class OpcionMultipleComponent implements OnInit {
+
   preguntaForm: FormGroup;
   correcta: any;
   constructor(private formBuilder: FormBuilder) {
