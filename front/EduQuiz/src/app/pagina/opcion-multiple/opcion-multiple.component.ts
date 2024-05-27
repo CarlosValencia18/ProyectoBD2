@@ -1,38 +1,53 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  standalone: true,
   selector: 'app-opcion-multiple',
+  standalone: true,
+  imports: [ReactiveFormsModule, RouterOutlet, CommonModule],
   templateUrl: './opcion-multiple.component.html',
-  imports: [
-    ReactiveFormsModule, RouterOutlet
-  ],
   styleUrls: ['./opcion-multiple.component.css']
 })
 export class OpcionMultipleComponent implements OnInit {
-  questionForm: FormGroup;
-
+  preguntaForm: FormGroup;
+  correcta: any;
   constructor(private formBuilder: FormBuilder) {
-    this.questionForm = this.formBuilder.group({
-      questionTopic: ['', Validators.required],
-      questionStatement: ['', Validators.required],
-      options: this.formBuilder.group({
-        option1: ['', Validators.required],
-        option2: ['', Validators.required],
-        option3: ['', Validators.required]
-      }),
-      correctOption: ['', Validators.required]
+    this.preguntaForm = this.formBuilder.group({
+      enunciado: ['', Validators.required],
+      opciones: this.formBuilder.array([this.crearOpcion()])
     });
+
   }
 
   ngOnInit() {}
 
-  onSubmit() {
-    if (this.questionForm.valid) {
-      console.log(this.questionForm.value);
-    }
+  get opciones() {
+    return this.preguntaForm.get('opciones') as FormArray;
   }
+
+  crearOpcion(): FormGroup {
+    return this.formBuilder.group({
+      texto: ['', Validators.required],
+      correcta: [false]
+    });
+  }
+
+  addOpcion(): void {
+    this.opciones.push(this.crearOpcion());
+  }
+
+  removeOpcion(index: number): void {
+    this.opciones.removeAt(index);
+  }
+
+  onSubmit(): void {
+    console.log(this.preguntaForm.value);
+  }
+  getFormData(): any {
+    return this.preguntaForm.value;
+  }
+
 }

@@ -1,85 +1,61 @@
-/* estilos.css */
-
-body {
-  background-color: #f5f7fa;
-  font-family: 'Roboto', sans-serif;
-}
-
-.header {
+/* Ajustes de estilos para opción múltiple */
+.option-group {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
-  background-color: #346cb0; /* Tonalidad de azul ajustada */
-  padding: 1rem 2rem;
+  margin-bottom: 10px;
+}
+
+.option-group input[type="text"] {
+  margin-right: 10px;
+  flex-grow: 1;
+}
+
+.option-group input[type="radio"] {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.option-group button {
+  margin-left: 10px;
+}
+
+
+button[type="submit"],
+button[type="button"] {
+  background-color: #0975f4;
+  border-color: #0975f4;
   color: white;
-}
-
-.app-name {
-  font-size: 2.5rem;
-  margin: 0;
-}
-
-.section-name {
-  font-size: 1.5rem;
-  margin: 0;
-}
-
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.form-group label {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  display: block;
-}
-
-.form-control {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 0.5rem;
-  font-size: 1rem;
-  width: 100%;
-}
-
-.form-control:focus {
-  border-color: #346cb0; /* Tonalidad de azul ajustada */
-  box-shadow: 0 0 5px rgba(52, 108, 176, 0.5);
-}
-
-.btn {
-  margin-right: 1em;
-  margin-bottom: 1em;
-}
-.btn-primary {
-  background-color: #346cb0; /* Tonalidad de azul ajustada */
-  border-color: #346cb0; /* Tonalidad de azul ajustada */
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem;
 }
 
-.btn-primary:hover {
-  background-color: #275394; /* Tonalidad de azul ajustada */
-  border-color: #275394; /* Tonalidad de azul ajustada */
+button[type="submit"]:hover,
+button[type="button"]:hover {
+  background-color: #0975f4;
+  border-color: #0975f4;
 }
 
-textarea.form-control {
-  resize: vertical;
+button[type="button"].btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  margin-right: 0.5rem;
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 1rem;
-  }
+button[type="button"].btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+button[type="button"].btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  padding: 0.5rem;
+  margin-left: 1rem;
+}
 
-  .btn-primary {
-    width: 100%;
-  }
+button[type="button"].btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
 }

@@ -1,4 +1,3 @@
-<!-- crear-pregunta.component.html -->
 <head>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -11,29 +10,38 @@
 <div class="container">
   <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="questionTopic">Tema de la pregunta</label>
-      <select class="form-control" id="questionTopic" formControlName="questionTopic" required>
-        <!-- Aquí puedes agregar las opciones para los temas -->
-      </select>
-    </div>
-
-    <div class="form-group">
       <label for="questionType">Tipo de pregunta</label>
-      <select class="form-control" id="questionType" formControlName="questionType" required>
+      <select class="form-control" id="questionType" formControlName="questionType" (change)="toggleQuestionContainers()" required>
         <option value="trueFalse">Falso y Verdadero</option>
         <option value="multipleChoice">Opción Múltiple</option>
         <option value="multipleAnswers">Opción Múltiple con Varias Respuestas</option>
-        <option value="matchConcepts">Emparejar Conceptos</option>
-        <option value="orderConcepts">Ordenar Conceptos</option>
       </select>
     </div>
 
-    <div class="form-group">
-      <label for="questionStatement">Enunciado de la pregunta</label>
-      <textarea class="form-control" id="questionStatement" formControlName="questionStatement" required></textarea>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="isPublic" formControlName="isPublic">
+      <label class="form-check-label" for="isPublic">Pública</label>
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="!questionForm.valid">Siguiente</button>
+    <!-- Contenedor de MultipleRespuestaComponent -->
+    <div *ngIf="showMultipleRespuestaContainer">
+      <app-multiple-respuesta #multipleRespuestaComponent></app-multiple-respuesta>
+    </div>
+
+    <!-- Contenedor de OpcionMultipleComponent -->
+    <div *ngIf="showOpcionMultipleContainer">
+      <app-opcion-multiple #opcionMultipleComponent></app-opcion-multiple>
+    </div>
+    <!-- Contenedor de FalsoVerdaderoComponent -->
+    <div *ngIf="showFalsoVerdaderoContainer">
+      <app-falso-verdadero #falsoVerdaderoComponent></app-falso-verdadero>
+    </div>
+    <div>
+      <button type="submit" class="btn btn-primary" [disabled]="!questionForm.valid">Crear pregunta</button>
+    </div>
   </form>
 </div>
+
+
+
 <router-outlet></router-outlet>

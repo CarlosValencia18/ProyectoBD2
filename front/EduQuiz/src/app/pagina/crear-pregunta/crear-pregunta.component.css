@@ -83,3 +83,18 @@ textarea.form-control {
     width: 100%;
   }
 }
+.form-check-input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.form-check-label {
+  margin-left: 10px;
+  cursor: pointer;
+}
+button[type="submit"] {
+  position: relative;
+  left: 50px; /* Desplaza el botón 50px a la derecha */
+  margin-top: 20px; /* Desplaza el botón 20px hacia abajo */
+}

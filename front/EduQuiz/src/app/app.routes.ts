@@ -6,6 +6,8 @@ import {OpcionMultipleComponent} from "./pagina/opcion-multiple/opcion-multiple.
 import {SeleccionarExamenComponent} from "./pagina/seleccionar-examen/seleccionar-examen.component";
 import {InicioDocenteComponent} from "./pagina/inicio-docente/inicio-docente.component";
 import {CrearBancoPreguntasComponent} from "./pagina/crear-banco-preguntas/crear-banco-preguntas.component";
+import {MultipleRespuestaComponent} from "./pagina/multiple-respuesta/multiple-respuesta.component";
+import {FalsoVerdaderoComponent} from "./pagina/falso-verdadero/falso-verdadero.component";
 
 export const routes: Routes = [{
   path:'login',
@@ -16,4 +18,6 @@ export const routes: Routes = [{
 },{path:'seleccionar-examen',component:SeleccionarExamenComponent
 },{path:'inicio-docente',component:InicioDocenteComponent
 },{path:'crear-banco-preguntas',component:CrearBancoPreguntasComponent
+},{path:'multiple-respuesta',component:MultipleRespuestaComponent
+},{path:'falso-verdadero',component:FalsoVerdaderoComponent
 }];
