@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-crear-banco-preguntas',
@@ -16,20 +17,16 @@ export class CrearBancoPreguntasComponent implements OnInit {
     // Agrega más preguntas aquí
   ];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void { }
 
   crearPregunta(): void {
-    console.log('Creando una nueva pregunta...');
-  }
-
-  editarPregunta(pregunta: any): void {
-    console.log('Editando la pregunta:', pregunta.titulo);
+    this.router.navigate(['/crear-pregunta']);
   }
 
   cerrarSesion(event: Event): void {
     event.preventDefault();
-    console.log('Cerrando sesión...');
+    this.router.navigate(['/login']);
   }
 }

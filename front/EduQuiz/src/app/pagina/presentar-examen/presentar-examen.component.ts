@@ -30,13 +30,23 @@ export class PresentarExamenComponent implements OnInit {
   respuestaVerdaderoFalso: boolean | undefined; // Variable para almacenar la respuesta de verdadero/falso
 
   constructor(private http: HttpClient, private router: Router) {}
+  contador: number = 0;
+  intervalId: any;
 
   ngOnInit(): void {
     // Datos de prueba
     this.preguntas = [
       {
+        type: 'trueFalse',
+        enunciado: 'El sol es una estrella',
+        respuesta: true,
+        visible: true,
+      },
+      {
         type: 'multipleAnswers',
         enunciado: 'Selecciona los colores primarios',
+        duracion: 2,
+        visible: true,
         opciones: [
           { texto: 'Rojo', correcta: true },
           { texto: 'Verde', correcta: false },
@@ -52,6 +62,7 @@ export class PresentarExamenComponent implements OnInit {
       {
         type: 'multipleChoice',
         enunciado: '¿Cuál es la capital de Francia?',
+        visible: true,
         opciones: [
           { texto: 'París', correcta: true },
           { texto: 'Londres', correcta: false },
@@ -59,6 +70,9 @@ export class PresentarExamenComponent implements OnInit {
         ],
       },
     ];
+    this.iniciarTemporizador(
+      this.preguntas[this.currentQuestionIndex].duracion
+    );
     const idExamen = history.state.idExamen; // Obtiene idExamen del estado de la navegación
     const url = 'http://localhost:8081/presentar-examen';
     const params = new HttpParams().set('idExamen', idExamen);
@@ -74,7 +88,16 @@ export class PresentarExamenComponent implements OnInit {
   }
 
   // Propiedades y métodos existentes...
-
+  iniciarTemporizador(duracion: number) {
+    this.contador = duracion * 60; // Convertir duración a segundos
+    this.intervalId = setInterval(() => {
+      this.contador--;
+      if (this.contador === 0) {
+        clearInterval(this.intervalId);
+        this.preguntas[this.currentQuestionIndex].visible = false; // Ocultar la pregunta
+      }
+    }, 1000);
+  }
   // Inicializamos selectedOption como null
 
   onAnswerSelected(answer: any) {
@@ -113,13 +136,21 @@ export class PresentarExamenComponent implements OnInit {
   }
   nextQuestion(): void {
     if (this.currentQuestionIndex < this.preguntas.length - 1) {
+      clearInterval(this.intervalId); // Detener el temporizador anterior
       this.currentQuestionIndex++;
+      this.iniciarTemporizador(
+        this.preguntas[this.currentQuestionIndex].duracion
+      );
     }
   }
 
   prevQuestion(): void {
     if (this.currentQuestionIndex > 0) {
+      clearInterval(this.intervalId); // Detener el temporizador anterior
       this.currentQuestionIndex--;
+      this.iniciarTemporizador(
+        this.preguntas[this.currentQuestionIndex].duracion
+      );
     }
   }
 }

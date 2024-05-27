@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';  // Importa CommonModule
+import { CommonModule } from '@angular/common';
+import {Router} from "@angular/router";// Importa CommonModule
 
 @Component({
   selector: 'app-inicio-docente',
@@ -25,7 +26,7 @@ export class InicioDocenteComponent implements OnInit {
     // Agrega más bancos aquí
   ];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void { }
 
@@ -42,7 +43,7 @@ export class InicioDocenteComponent implements OnInit {
   }
 
   crearBanco(): void {
-    console.log('Creando un nuevo banco de preguntas...');
+    this.router.navigate(['/crear-banco']);
   }
 
   cerrarSesion(event: Event): void {

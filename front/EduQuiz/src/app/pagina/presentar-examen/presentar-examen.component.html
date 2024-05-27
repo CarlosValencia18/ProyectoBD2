@@ -7,17 +7,23 @@
   <h2 class="section-name">Presentar Examen</h2>
 </div>
 <div class="container d-flex justify-content-center">
-  <div *ngIf="preguntas[currentQuestionIndex].type === 'multipleChoice'">
-    <h3>{{ preguntas[currentQuestionIndex].enunciado }}</h3>
-    <app-pregunta-om [pregunta]="preguntas[currentQuestionIndex]" (answer)="onAnswerSelected($event)"></app-pregunta-om>
+  <div *ngIf="preguntas[currentQuestionIndex].duracion">
+    Tiempo restante: {{ contador }} segundos
   </div>
-  <div *ngIf="preguntas[currentQuestionIndex].type === 'multipleAnswers'">
-    <h3>{{ preguntas[currentQuestionIndex].enunciado }}</h3>
-    <app-pregunta-mr [pregunta]="preguntas[currentQuestionIndex]" (answer)="onAnswerSelected($event)"></app-pregunta-mr>
-  </div>
-  <div *ngIf="preguntas[currentQuestionIndex].type === 'trueFalse'">
-    <h3>{{ preguntas[currentQuestionIndex].enunciado }}</h3>
-    <app-pregunta-fv [pregunta]="preguntas[currentQuestionIndex]" (answer)="onAnswerSelected($event)"></app-pregunta-fv>
+  <div *ngIf="preguntas[currentQuestionIndex].visible">
+    <div *ngIf="preguntas[currentQuestionIndex].type === 'multipleChoice'">
+      <h3>{{ preguntas[currentQuestionIndex].enunciado }}</h3>
+      <app-pregunta-om [pregunta]="preguntas[currentQuestionIndex]" (answer)="onAnswerSelected($event)"></app-pregunta-om>
+    </div>
+    <div *ngIf="preguntas[currentQuestionIndex].type === 'multipleAnswers'">
+      <h3>{{ preguntas[currentQuestionIndex].enunciado }}</h3>
+      <app-pregunta-mr [pregunta]="preguntas[currentQuestionIndex]" (answer)="onAnswerSelected($event)"></app-pregunta-mr>
+    </div>
+    <div *ngIf="preguntas[currentQuestionIndex].type === 'trueFalse'">
+      <h3>{{ preguntas[currentQuestionIndex].enunciado }}</h3>
+      <app-pregunta-fv [pregunta]="preguntas[currentQuestionIndex]" (answer)="onAnswerSelected($event)"></app-pregunta-fv>
+    </div>
   </div>
   <button class="btn btn-primary" (click)="prevQuestion()" [disabled]="currentQuestionIndex === 0">Anterior</button>
-  <button class="btn btn-primary" (click)="enviarRespuestaYSiguientePregunta()">Siguiente</button></div>
+  <button class="btn btn-primary" (click)="enviarRespuestaYSiguientePregunta()">Siguiente</button>
+</div>
