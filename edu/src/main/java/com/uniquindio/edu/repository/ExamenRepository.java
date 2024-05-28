@@ -21,7 +21,7 @@ public class ExamenRepository {
     private static final String FIND_PENDING_EXAMS_BY_STUDENT_ID_SQL = "SELECT * FROM VW_EXAMENES_PENDIENTES WHERE Estudiantes_id_estudiante = ?";
     private static final String FIND_EXAMS_BY_TEACHER_ID_SQL = "SELECT * FROM VW_EXAMENES_CREADOS_DOCENTE WHERE Docentes_id_docente = ?";
     private static final String FIND_QUESTION_BANKS_BY_TEACHER_ID_SQL = "SELECT * FROM VW_BANCOS_PREGUNTAS_DOCENTE WHERE Docentes_id_docente = ?";
-    private static final String CREATE_EXAM_SQL = "CALL sp_crear_examen(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String CREATE_EXAM_SQL = "CALL sp_crear_examen(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String ASSIGN_EXAM_SQL = "CALL sp_asignar_examen(?, ?, ?, ?, ?)";
 
     public List<Examen> findExamsByTeacherId(String teacherId) {
@@ -36,7 +36,7 @@ public class ExamenRepository {
         return jdbcTemplate.query(FIND_PENDING_EXAMS_BY_STUDENT_ID_SQL, new Object[]{studentId}, new ExamenPendienteRowMapper());
     }
 
-    public String createExam(String nombre, String descripcion, String categoria, int duracion, int numPreguntas, int numPreguntasAleatorias, float umbralAprobacion, String docenteId) {
+    public String createExam(String nombre, String descripcion, String categoria, int duracion, int numPreguntas, int numPreguntasAleatorias, int umbralAprobacion, String docenteId, String idTema) {
         return jdbcTemplate.execute((ConnectionCallback<String>) connection -> {
             try (CallableStatement cs = connection.prepareCall(CREATE_EXAM_SQL)) {
                 cs.setString(1, nombre);
@@ -46,10 +46,11 @@ public class ExamenRepository {
                 cs.setInt(5, numPreguntas);
                 cs.setInt(6, numPreguntasAleatorias);
                 cs.setFloat(7, umbralAprobacion);
-                cs.setString(8, docenteId);
-                cs.registerOutParameter(9, Types.VARCHAR);
+                cs.setString(8, idTema);
+                cs.setString(9, docenteId);
+                cs.registerOutParameter(10, Types.VARCHAR);
                 cs.execute();
-                return cs.getString(9);
+                return cs.getString(10);
             }
         });
     }

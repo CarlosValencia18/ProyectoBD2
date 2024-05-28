@@ -33,8 +33,8 @@ public class ExamenService {
         return examenRepository.findPendingExamsByStudentId(studentId);
     }
 
-    public String createExam(String nombre, String descripcion, String categoria, int duracion, int numPreguntas, int numPreguntasAleatorias, float umbralAprobacion, String docenteId) {
-        return examenRepository.createExam(nombre, descripcion, categoria, duracion, numPreguntas, numPreguntasAleatorias, umbralAprobacion, docenteId);
+    public String createExam(String nombre, String descripcion, String categoria, int duracion, int numPreguntas, int numPreguntasAleatorias, int umbralAprobacion, String docenteId, String idTema) {
+        return examenRepository.createExam(nombre, descripcion, categoria, duracion, numPreguntas, numPreguntasAleatorias, umbralAprobacion, docenteId, idTema);
     }
 
     public void assignExam(String examenId, String grupoId, Date fechaInicio, Date fechaFin, int peso) {

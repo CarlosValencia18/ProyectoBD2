@@ -31,8 +31,8 @@ public class PreguntaRepository {
     }
 
     private static final String CREATE_QUESTION_SQL = "CALL sp_crear_pregunta(?, ?, ?, ?, ?, ?)";
-    private static final String ASSOCIATE_QUESTION_SQL = "CALL sp_asociar_pregunta_examen(?, ?, ?)";
-//    private static final String GET_QUESTIONS_SQL = "CALL sp_obtener_preguntas_examen(?)";
+    private static final String ASSOCIATE_QUESTION_SQL = "CALL sp_agregar_pregunta_examen(?, ?, ?)";
+    private static final String CREATE_OPTION_SQL = "CALL sp_agregar_opcion_pregunta(?, ?, ?)";
 
     public Long createQuestion(String textoPregunta, int tipoPreguntaId, int duracion, char privada, String preguntasIdPregunta) {
         return jdbcTemplate.execute((ConnectionCallback<Long>) connection -> {
@@ -49,8 +49,12 @@ public class PreguntaRepository {
         });
     }
 
-    public void associateQuestionWithExam(String examenId, Long preguntaId, float porcentaje) {
+    public void associateQuestionWithExam(String examenId, String preguntaId, int porcentaje) {
         jdbcTemplate.update(ASSOCIATE_QUESTION_SQL, examenId, preguntaId, porcentaje);
+    }
+
+    public void createOption(String textoOpcion, String idPregunta, char esCorrecta) {
+        jdbcTemplate.update(CREATE_OPTION_SQL, textoOpcion, idPregunta, esCorrecta);
     }
 
     public List<Pregunta> findPreguntasByExamenId(String idExamen) {

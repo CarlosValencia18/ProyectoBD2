@@ -35,6 +35,7 @@ export class CrearPreguntaComponent implements OnInit {
   showMultipleRespuestaContainer: boolean = false;
   showOpcionMultipleContainer = false;
   showFalsoVerdaderoContainer = false;
+  idUsuario: string = history.state.idUsuario;
 
   @ViewChild(FalsoVerdaderoComponent)
   falsoVerdaderoComponent!: FalsoVerdaderoComponent;
@@ -84,7 +85,9 @@ export class CrearPreguntaComponent implements OnInit {
 
       console.log('Datos finales:', finalData);
 
-      this.router.navigate(['/crear-examen']);
+      this.router.navigate(['/crear-examen'], {
+        state: { idUsuario: this.idUsuario },
+      });
     } else {
       console.log(
         'El formulario no está completo. Faltan los siguientes campos:'

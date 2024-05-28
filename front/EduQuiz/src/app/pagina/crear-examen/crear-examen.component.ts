@@ -23,6 +23,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./crear-examen.component.css'],
 })
 export class CrearExamenComponent implements OnInit {
+  idUsuario: string = history.state.idUsuario;
   examForm: FormGroup = this.formBuilder.group({});
 
   constructor(
@@ -42,6 +43,8 @@ export class CrearExamenComponent implements OnInit {
       examCategory: ['', Validators.required],
       questionCount: [''],
       examDuration: [''],
+      examTema: ['', Validators.required],
+      umbralAprobacion: ['', Validators.required],
       preguntas: this.formBuilder.array([], Validators.required),
     });
 
@@ -98,10 +101,10 @@ export class CrearExamenComponent implements OnInit {
           porcentaje: pregunta.porcentaje,
           duracion: pregunta.duracion,
           privada: pregunta.isPublic,
-          // Verificar si pregunta.opciones existe antes de llamar a map en él
           opciones: pregunta.opciones ? pregunta.opciones : [],
+          tipo: pregunta.questionType,
         })),
-        idUsuario: history.state.idUsuario,
+        idUsuario: this.idUsuario,
       };
       console.log(examForApi);
       // Enviar examForApi al controlador
@@ -109,7 +112,9 @@ export class CrearExamenComponent implements OnInit {
         .post('http://localhost:8081/crear-examen', examForApi)
         .subscribe((response) => {
           console.log(response);
-          // this.router.navigate(['/inicio-docente']);
+          this.router.navigate(['/inicio-docente'], {
+            state: { idUsuario: this.idUsuario },
+          });
         });
     }
   }
@@ -118,6 +123,8 @@ export class CrearExamenComponent implements OnInit {
 
   addPregunta() {
     this.formStateService.saveFormState(this.examForm);
-    this.router.navigate(['/crear-pregunta']);
+    this.router.navigate(['/crear-pregunta'], {
+      state: { idUsuario: this.idUsuario },
+    });
   }
 }

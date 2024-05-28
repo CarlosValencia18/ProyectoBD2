@@ -1,14 +1,8 @@
 package com.uniquindio.edu.service;
 
-import com.uniquindio.edu.model.OpcionPregunta;
-import com.uniquindio.edu.model.Pregunta;
-import com.uniquindio.edu.repository.OpcionPreguntaRepository;
 import com.uniquindio.edu.repository.PreguntaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PreguntaService {
@@ -20,8 +14,12 @@ public class PreguntaService {
         return preguntaRepository.createQuestion(textoPregunta, tipoPreguntaId, duracion, privada, preguntasIdPregunta);
     }
 
-    public void associateQuestionWithExam(String examenId, Long preguntaId, float porcentaje) {
+    public void associateQuestionWithExam(String examenId, String preguntaId, int porcentaje) {
         preguntaRepository.associateQuestionWithExam(examenId, preguntaId, porcentaje);
+    }
+
+    public void createOption(String textoOpcion, String idPregunta, char esCorrecta) {
+        preguntaRepository.createOption(textoOpcion, idPregunta, esCorrecta);
     }
 }
 

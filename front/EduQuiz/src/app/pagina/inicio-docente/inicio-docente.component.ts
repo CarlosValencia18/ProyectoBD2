@@ -15,6 +15,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
   styleUrls: ['./inicio-docente.component.css'],
 })
 export class InicioDocenteComponent implements OnInit {
+  idUsuario: string = history.state.idUsuario;
   examenesCreados = [
     { nombre: 'Examen 1', descripcion: 'Descripción del Examen 1' },
     { nombre: 'Examen 2', descripcion: 'Descripción del Examen 2' },
@@ -30,9 +31,8 @@ export class InicioDocenteComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
-    const idUsuario = history.state.idUsuario; // Obtiene idUsuario del estado de la navegación
     const url = 'http://localhost:8081/inicio-docente';
-    const params = new HttpParams().set('idUsuario', idUsuario);
+    const params = new HttpParams().set('idUsuario', this.idUsuario);
 
     this.http.get<any>(url, { params }).subscribe({
       next: (response: any) => {
@@ -51,7 +51,9 @@ export class InicioDocenteComponent implements OnInit {
 
   crearExamen(): void {
     console.log('Creando un nuevo examen...');
-    this.router.navigate(['/crear-examen']);
+    this.router.navigate(['/crear-examen'], {
+      state: { idUsuario: this.idUsuario },
+    });
   }
 
   verBanco(banco: any): void {
@@ -59,7 +61,9 @@ export class InicioDocenteComponent implements OnInit {
   }
 
   crearBanco(): void {
-    this.router.navigate(['/crear-banco']);
+    this.router.navigate(['/crear-banco'], {
+      state: { idUsuario: this.idUsuario },
+    });
   }
 
   cerrarSesion(event: Event): void {
